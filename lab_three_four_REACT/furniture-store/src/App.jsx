@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
+import Footer from "./components/Footer";
 import { setCategoryId, setSort } from './redux/slices/filterSlice';
 
 import "./scss/app.scss";
@@ -29,10 +30,11 @@ function App() {
               <Route path="/" element={<Home />} /> {/* Главная страница */}
               <Route path="/cart" element={<Cart />} /> {/* Корзина */}
               <Route path="*" element={<NotFound />} /> {/* Страница 404 */}
-            </Routes>  
+            </Routes> 
+            <Footer /> {/* Футер приложения */} 
           </div>
         </div> 
-      </SearchContext.Provider>
+      </SearchContext.Provider> 
     </div>
   );
 }
