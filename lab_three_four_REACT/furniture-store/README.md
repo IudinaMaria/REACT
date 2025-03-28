@@ -474,3 +474,254 @@
 Это хук, который позволяет выполнять побочные эффекты в функциональных компонентах. Это может быть асинхронная логика, например, запросы к серверу, подписки, манипуляции с DOM или установка таймеров.
 3. С помощью какого метода можно рендерить списки элементов в React?<br>
 Для рендеринга списков элементов в React используется метод .map(). Это стандартный метод для массивов в JavaScript, который позволяет пройтись по каждому элементу массива и вернуть новый массив JSX-элементов.
+
+# Лабораторная работа №4. Маршрутизация в React
+
+## Цель работы
+
+Освоить использование маршрутизации в React с помощью библиотеки React Router. Научиться создавать статические и динамические маршруты, использовать Layout-компоненты и реализовывать валидацию параметров маршрута.
+
+## Условия
+
+Продолжите разработку приложения интернет-магазина из предыдущей лабораторной работы. Добавьте маршрутизацию с использованием библиотеки `React Router` (_v7_).
+
+### Задание 1. Подготовка среды
+
+1. Установлена библиотека React Router:
+   ```jsx
+   npm install react-router
+   ```
+
+### Задание 2. Настройка основных маршрутов
+
+1. Настроены статические маршруты в файле `App.jsx` с использованием компонентов `Routes`
+   1. Главная страница (`/`) — отображает список всех товаров.
+   2. Страница корзины (`/cart`) — отображает список выбранных товаров. _Логику корзины реализовывать не нужно, она будет реализована в следующих лабораторных работах_.
+   3. Страница ошибки (`*`) — при вводе неправильного маршрута.
+
+### Задание 3. Динамические маршруты
+
+1. Создайте страницу для отображения конкретного товара:
+
+   1. Маршрут: `/product/:id` (где `product` — название вашего товара, например _pizza_, а `id` — идентификатор товара).
+   2. Компонент: `ProductPage.jsx` (где `ProductPage` — компонент для отображения информации о товаре).
+   3. Используйте динамический параметр `:id` для получения данных о товаре.
+
+```jsx
+   import React, { useState, useEffect } from 'react';
+   import { useParams } from 'react-router-dom';
+   import NotFoundPage from './NotFoundPage';
+
+function ProductPage() {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Проверка на корректность id
+    if (isNaN(id)) {
+      setError('Некорректный идентификатор');
+      return;
+    }
+
+    // Загрузка данных с mockAPI
+    fetch(`https://mockapi.com/products/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setProduct(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError('Ошибка при загрузке данных');
+        setLoading(false);
+      });
+  }, [id]);
+
+  if (loading) {
+    return <p>Загрузка...</p>;
+  }
+
+  if (error || !product) {
+    return <NotFoundPage />;
+  }
+
+  return (
+    <div>
+      <h1>{product.name}</h1>
+      <p>{product.description}</p>
+      <p>Цена: {product.price} ₽</p>
+    </div>
+  );
+}
+
+export default ProductPage;
+```
+
+В `App.js` компоненте маршрутизации настроила маршрут для /product/:id:
+
+```jsx
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ProductPage from './components/ProductPage';
+import NotFoundPage from './components/NotFoundPage'; // Страница 404
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="*" element={<NotFoundPage />} /> {/* Страница 404 для неверных маршрутов */}
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
+```
+
+### Задание 4. Использование Layout-компонентов
+
+1. Создайте общий Layout для страниц:
+
+   1. Используйте компоненты `Header` и `Footer` из предыдущей работы.
+   2. Создайте компонент `MainLayout.jsx`, который включает шапку и подвал.
+
+```jsx
+   import React from 'react';
+  import Header from '../components/Header';
+  import Footer from '../components/Footer';
+  import { Outlet } from 'react-router-dom';
+
+function MainLayout() {
+  return (
+    <>
+      <Header />
+      <main>
+        <Outlet /> {/* Здесь будут отображаться дочерние компоненты */}
+      </main>
+      <Footer />
+    </>
+  );
+  }
+
+  export default MainLayout;
+
+```
+
+2. Настройте маршруты с использованием Layout-а
+```jsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainLayout from './components/MainLayout';
+import ProductPage from './components/ProductPage';
+import NotFoundPage from './components/NotFoundPage';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/product/:id" element={<ProductPage />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
+```
+
+### Задание 5. Страница 404
+
+1. Создайте компонент-страницу `NotFoundPage.jsx`, который отображает сообщение **"Страница не найдена"**.
+2. Используйте этот компонент в маршруте `*`, чтобы перехватывать все неверные маршруты.
+```jsx
+import React from "react";
+
+import styles from "./NotFoundBlock.module.scss";
+
+const NotFoundBlock = () => {
+    return (
+        <div className={styles.root}> 
+            {/* Заголовок с кодом ошибки и сообщением о том, что страница не найдена */}
+            <h1>
+                <span>404</span>
+                <br />
+                Ничего не найдено.
+            </h1>
+            {/* Описание, поясняющее, что страница не существует */}
+            <p className={styles.description}>
+                К сожалению, данная страница отсутствует на данном сайте.
+            </p>
+        </div>
+    );
+}
+
+export default NotFoundBlock;
+```
+
+### Задание 6. Валидация параметров маршрута
+
+1. Добавьте проверку корректности параметров на странице товара (`/product/:id`)
+   1. Проверьте, является ли параметр числом.
+   2. Если параметр некорректный, то отобразите компонент `NotFoundPage`.
+```jsx
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import NotFoundPage from './NotFoundPage';
+
+function ProductPage() {
+  const { id } = useParams();
+
+  // Проверка, является ли id числом
+  if (isNaN(id)) {
+    return <NotFoundPage />;
+  }
+
+  const products = [
+    { id: 1, name: 'Пицца Маргарита', description: 'Классическая пицца с моцареллой', price: 500 },
+    { id: 2, name: 'Суши', description: 'Свежие суши с лососем', price: 400 },
+    { id: 3, name: 'Бургер', description: 'Вкусный бургер с говядиной', price: 300 },
+  ];
+
+  const product = products.find(p => p.id === parseInt(id));
+
+  if (!product) {
+    return <NotFoundPage />;
+  }
+
+  return (
+    <div>
+      <h1>{product.name}</h1>
+      <p>{product.description}</p>
+      <p>Цена: {product.price} ₽</p>
+    </div>
+  );
+}
+
+export default ProductPage;
+```
+
+### Задание 7. Документация проекта
+
+1. Код задокументирован в соответствии со стандартами JSDoc.
+
+## Примечание
+
+При необходимости вы можете создавать и использовать дополнительные компоненты и файлы.
+
+## Контрольные вопросы
+
+1. Что такое динамические маршруты в React Router и как их использовать? <br>
+Динамические маршруты позволяют создавать маршруты с параметрами, которые могут изменяться в зависимости от запроса. В React Router это достигается с помощью синтаксиса :param, где param — это имя параметра маршрута.
+2. Как реализовать Layout-компоненты в приложении с маршрутизацией?<br>
+Layout-компоненты обычно используются для оборачивания различных страниц (маршрутов) в общий каркас, например, с шапкой и подвалом. Это позволяет избежать повторения кода.
+3. Какие методы проверки параметров маршрута можно использовать?<br>
+Для проверки параметров маршрута можно использовать несколько подходов:<br>
+Использование useParams: Получаете параметры маршрута и проверяете их в компоненте.<br>
+Проверка типа данных: Можно добавить проверку на правильность типа данных, например, удостовериться, что id является числом.<br>
+Использование валидаторов: Если параметры сложные (например, строки или объекты), можно использовать сторонние библиотеки для валидации (например, yup, joi).
+4. Как настроить отображение страницы 404 при некорректном маршруте?<br>
+Для настройки страницы 404 используйте маршрут с путем *, который будет перехватывать все неверные маршруты и отображать компонент для ошибки.
