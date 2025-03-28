@@ -250,7 +250,7 @@
    выбранный размер пицц, какое тесто тонкое-толстое. При нажатии на кнопку размера пиццы `activeSize` должен изменятся.
 2. Реализована логика выделения активного размера пиццы при выборе соответствующей кнопки и теста.
 
-   ```jsx
+```jsx
    // Состояние для активного типа пиццы (по умолчанию - первый тип)
   const [activeType, setActiveType] = React.useState(types[0]);
 
@@ -267,12 +267,12 @@
   >
     {size} см.
     </li>
-   ```
+```
 
 3. В `Home.jsx` добавлено состояние, в которое с помощью `useEffect` заносятся данные о пицц
    из mockAPI, так же было добавлено состояние, чтобы `useEffect` следил за изменениями `[categoryId, sortType, searchValue, currentPage]` и перересовывался в случае их измнения.
 
-   ```jsx
+```jsx
   // Эффект для загрузки списка пицц с сервера при изменении параметров
   React.useEffect(() => {
     setIsLoaded(true);
@@ -295,7 +295,7 @@
 
     window.scrollTo(0, 0);
   }, [categoryId, sortType, searchValue, currentPage]);
-   ```
+```
 
 ### Задание 6. Реализация слайдера
 
@@ -305,9 +305,9 @@
 4. _Дополнительное задание_. В `useEffect` добавлено автоматическое переключение слайдов каждые **3 секунды**.
 
 ```jsx
-import React, { useState, useEffect } from 'react';
+  import React, { useState, useEffect } from 'react';
 
-function Slider() {
+  function Slider() {
   // Состояние для текущего активного слайда
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -355,9 +355,9 @@ function Slider() {
       </button>
     </div>
   );
-}
+  }
 
-export default Slider;
+  export default Slider;
 ```
 
 ### Задание 6. _Дополнительное задание_. Реализация поиска пиццы
@@ -365,7 +365,7 @@ export default Slider;
 1. Создан компонент `Search.jsx`, который будет содержит поле ввода для поиска.
 2. Передано в `Search` функцию обработчика, которая будет обновляет состояние списка пиццы.
 
-   ```jsx
+```jsx
    import React from "react";
    import { SearchContext } from "../../App";
 
@@ -426,14 +426,14 @@ export default Slider;
   };
 
   export default Search;
-   ```
+```
 
 3. В `furnitureList.jsx` добавьте состояния:
 
     - `furnitures`, в которое с помощью useEffect загружаются данные из `furniture.json`;
     - `filteredFurnitures`, которое будет содержать отфильтрованный список пицц;
 
-   ```jsx
+```jsx
    import { useState, useEffect } from "react";
    import furnitureData from "../data/furniture.json";
    import FurnitureCard from "./FurnitureCard";
@@ -460,7 +460,7 @@ export default Slider;
    }
 
    export default FurnitureList;
-   ```
+```
 
 ### Задание 7. Документация проекта
 
