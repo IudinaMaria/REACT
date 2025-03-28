@@ -1,24 +1,22 @@
 import React from "react";
 
-// onClickCategory берем из Home.jsx --из родительского компонента
+// Компонент Categories отображает список категорий пиццы
+// Принимает props:
+// - value (текущая выбранная категория)
+// - onChangeCategory (функция изменения категории)
+
 function Categories({ value, onChangeCategory }) {
-  // для отображения списка категорий и выбора категории
-  // const [activeIndex, setActiveIndex] = React.useState(0);
-
+  // Массив доступных категорий пиццы
   const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
-
-  // для выбора категории
-  // const onClickCategory = (index) => {
-  // setActiveIndex(index);
-  // };
 
   return (
     <div className="categories">
       <ul>
         {categories.map((categoryName, i) => (
           <li key={i}
-            /* onClick вызовись буквально при нажатии */
+            // Вызывает функцию onChangeCategory при клике на категорию
             onClick={() => onChangeCategory(i)}
+            // Добавляет класс "active" для выделенной категории
             className={value == i ? "active" : ""}
           >
             {categoryName}

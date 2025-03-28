@@ -2,8 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
 
-
-// для отображения списка сортировки и выбора сортировки
+// Список доступных вариантов сортировки
 const list = [
   {name: 'популярности(desc)', sortProperty: 'rating'}, 
   {name: 'популярности(asc)', sortProperty: '-rating'},
@@ -14,21 +13,16 @@ const list = [
 ];
 
 function Sort() {
+  const dispatch = useDispatch(); // Хук для отправки экшенов в Redux store
+  const sort = useSelector(state => state.filter.sort); // Хук для получения текущего состояния сортировки из Redux store
 
-  const dispatch = useDispatch(); // useDispatch - хук для отправки экшенов в стор
-  const sort = useSelector(state => state.filter.sort); // useSelector - хук для получения данных из стора для сортировки
+  const [open, setOpen] = React.useState(false); // Локальное состояние для управления открытием/закрытием меню сортировки
 
-
-  
-
-  // const [selected, setSelected] = React.useState(0); теперь это передается через пропсы глоабльно
-  const [open, setOpen] = React.useState(false);
-  // const sortName = list[value].name; по факту это тоже передается через пропсы глоабльно
+  // Функция для изменения выбранного типа сортировки
   const onClickListItem = (obj) => {
-    // onChangeSort(index);
-    dispatch(setSort(obj));
-    setOpen(false);
-  }
+    dispatch(setSort(obj)); // Отправляем действие в Redux store
+    setOpen(false); // Закрываем всплывающее меню
+  };
 
   return (
     <div className="sort">
@@ -46,13 +40,19 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={()=> setOpen(!open)}>{sort.name}</span>
+        <span onClick={() => setOpen(!open)}>{sort.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
           <ul>
             {list.map((obj, index) => (
-              <li key={index} className={sort.sortProperty === obj.sortProperty ? 'active' : ''} onClick={() => onClickListItem(obj)}>{obj.name}</li>
+              <li 
+                key={index} 
+                className={sort.sortProperty === obj.sortProperty ? 'active' : ''} 
+                onClick={() => onClickListItem(obj)}
+              >
+                {obj.name}
+              </li>
             ))}
           </ul>
         </div>
