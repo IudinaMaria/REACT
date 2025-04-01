@@ -1,48 +1,72 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { act } from "react";
 
+/**
+ * Начальное состояние корзины.
+ * @type {{ totalPrice: number, items: Array<{ id: number, price: number, count?: number }> }}
+ */
 const initialState = {
-  // начальное состояние
-  totalPrice: 0, // общая цена
-  items: [], // массив с товарами
+  totalPrice: 0, // Общая стоимость товаров в корзине
+  items: [], // Список товаров в корзине
 };
 
+/**
+ * Слайс состояния корзины.
+ */
 export const cartSlice = createSlice({
-  // создаем то, где будет обрабатываться состояние
-  name: "cart", // имя слайса
-  initialState, // начальное состояние
+  name: "cart",
+  initialState,
   reducers: {
+    /**
+     * Добавляет товар в корзину или увеличивает его количество.
+     * @param {typeof initialState} state - Текущее состояние корзины.
+     * @param {{ payload: { id: number, price: number } }} action - Данные о товаре.
+     */
     addItem: (state, action) => {
-      // изменение категории
-      const findItem = state.items.find((obj) => obj.id === action.payload.id); // ищем товар в массиве
+      const findItem = state.items.find((obj) => obj.id === action.payload.id);
       if (findItem) {
-        findItem.count++; // если нашли, увеличиваем счетчик
+        findItem.count = (findItem.count || 1) + 1;
       } else {
-        state.items.push({ ...action.payload, count: 1 }); // если не нашли, добавляем товар в массив с счетчиком 1
+        state.items.push({ ...action.payload, count: 1 });
       }
-      state.totalPrice = state.items.reduce((sum, obj) => {
-        return obj.price * obj.count + sum; // считаем общую цену
-      }, 0);
+      state.totalPrice = state.items.reduce(
+        (sum, obj) => obj.price * obj.count + sum,
+        0
+      );
     },
+
+    /**
+     * Уменьшает количество товара в корзине.
+     * @param {typeof initialState} state - Текущее состояние корзины.
+     * @param {{ payload: number }} action - ID товара.
+     */
     minusItem(state, action) {
       const findItem = state.items.find((obj) => obj.id === action.payload);
-      
-      if (findItem){
-      findItem.count--; // уменьшаем счетчик
-      }// ищем товар в массиве
+      if (findItem && findItem.count > 1) {
+        findItem.count--;
+      }
     },
+
+    /**
+     * Удаляет товар из корзины.
+     * @param {typeof initialState} state - Текущее состояние корзины.
+     * @param {{ payload: number }} action - ID товара.
+     */
     removeItem: (state, action) => {
-      // изменение категории
-      state.items = state.items.filter((obj) => obj.id !== action.payload); // удаляем товар из массива
+      state.items = state.items.filter((obj) => obj.id !== action.payload);
     },
+
+    /**
+     * Очищает корзину.
+     * @param {typeof initialState} state - Текущее состояние корзины.
+     */
     clearItems(state) {
-      // изменение категории
-      state.items = []; // очищаем массив
-      state.totalPrice = 0; // очищаем общую цену
+      state.items = [];
+      state.totalPrice = 0;
     },
   },
 });
 
-export const { addItem, removeItem, clearItems, minusItem} = cartSlice.actions;
+export const { addItem, removeItem, clearItems, minusItem } = cartSlice.actions;
 
 export default cartSlice.reducer;

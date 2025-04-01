@@ -1,10 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
-import filter from './slices/filterSlice';
-import cart from './slices/cartSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import filter from "./slices/filterSlice";
+import cart from "./slices/cartSlice";
 
-export const store = configureStore({ // создаем стор и передаем в него редюсер
-  reducer: { 
-    filter, // передаем редюсер
-    cart, // передаем редюсер
-},
-})
+/**
+ * Конфигурация хранилища Redux.
+ * @type {import('@reduxjs/toolkit').EnhancedStore}
+ */
+export const store = configureStore({
+  reducer: {
+    filter, // Редьюсер для фильтрации данных
+    cart, // Редьюсер для управления корзиной
+  },
+});

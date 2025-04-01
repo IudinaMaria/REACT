@@ -1,11 +1,10 @@
-@import '../scss/_variables.scss';
-@import '../scss/libs/_normalize.scss';
-@import '../scss/components/_all.scss';
+@import "../scss/_variables.scss";
+@import "../scss/libs/_normalize.scss";
+@import "../scss/components/_all.scss";
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
-
 
 .wrapper {
   width: calc(100vw - 100px);
