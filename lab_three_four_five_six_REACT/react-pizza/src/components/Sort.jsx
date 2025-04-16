@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSort } from "../redux/slices/filterSlice";
 
-// Для отображения списка сортировки и выбора сортировки
 export const list = [
   { name: "популярности(desc)", sortProperty: "rating" },
   { name: "популярности(asc)", sortProperty: "-rating" },
@@ -34,21 +33,21 @@ export function Sort() {
    * @param {Object} obj Объект с информацией о выбранной сортировке.
    */
   const onClickListItem = (obj) => {
-    dispatch(setSort(obj)); // Отправляем экшен для изменения сортировки
-    setOpen(false); // Закрываем список после выбора сортировки
+    dispatch(setSort(obj));
+    setOpen(false); 
   };
 
   React.useEffect(() => {
     const handleClickOutside = (event) => {
       if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
-        setOpen(false); // Закрытие списка, если клик был вне его области
+        setOpen(false); 
       }
     };
 
-    document.body.addEventListener("click", handleClickOutside); // Добавляем слушатель на клик вне компонента
+    document.body.addEventListener("click", handleClickOutside); 
 
     return () => {
-      document.body.removeEventListener("click", handleClickOutside); // Убираем слушатель при размонтировании компонента
+      document.body.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
@@ -69,7 +68,6 @@ export function Sort() {
         </svg>
         <b>Сортировка по:</b>
         <span onClick={() => setOpen(!open)}>{sort.name}</span>{" "}
-        {/* Показываем текущую сортировку */}
       </div>
       {open && (
         <div className="sort__popup">

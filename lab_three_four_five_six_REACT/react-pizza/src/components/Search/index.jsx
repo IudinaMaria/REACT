@@ -11,18 +11,18 @@ import styles from "./Search.module.scss";
  * @component
  */
 const Search = () => {
-  const [value, setValue] = React.useState(""); // создаем локальный стейт для значения поля ввода
-  const { setSearchValue } = React.useContext(SearchContext); // достаем из контекста значение для поиска
-  const inputRef = React.useRef(); // создаем реф для input
+  const [value, setValue] = React.useState("");
+  const { setSearchValue } = React.useContext(SearchContext);
+  const inputRef = React.useRef();
 
   /**
    * Функция для очистки поля ввода и фокусировки на нем.
    * Обнуляет значения в стейте и контексте.
    */
   const onClickClear = () => {
-    setSearchValue(""); // очищаем значение поля ввода в контексте
-    setValue(""); // очищаем локальное состояние поля ввода
-    inputRef.current.focus(); // фокусируемся на элементе input
+    setSearchValue(""); 
+    setValue(""); 
+    inputRef.current.focus(); 
   };
 
   /**
@@ -33,9 +33,9 @@ const Search = () => {
    */
   const updateSearchValue = React.useCallback(
     debounce((str) => {
-      setSearchValue(str); // обновляем значение поиска в контексте
-    }, 250), // задержка 250 мс для дебаунса
-    [] // пустой массив зависимостей, чтобы функция не пересоздавалась при каждом рендере
+      setSearchValue(str); 
+    }, 250), 
+    [] 
   );
 
   /**
@@ -45,8 +45,8 @@ const Search = () => {
    * @param {React.ChangeEvent<HTMLInputElement>} event - событие изменения ввода
    */
   const onChangeInput = (event) => {
-    setValue(event.target.value); // обновляем значение локального состояния
-    updateSearchValue(event.target.value); // обновляем значение в контексте
+    setValue(event.target.value);
+    updateSearchValue(event.target.value); 
   };
 
   return (
@@ -67,15 +67,15 @@ const Search = () => {
         <line x1="21" x2="16.65" y1="21" y2="16.65" />
       </svg>
       <input
-        ref={inputRef} // передаем реф-ссылку в input
-        value={value} // контролируемое значение поля ввода
-        onChange={onChangeInput} // обработчик изменения ввода
+        ref={inputRef}
+        value={value}
+        onChange={onChangeInput}
         className={styles.input}
         placeholder="Search..."
       />
       {value && (
         <svg
-          onClick={onClickClear} // очищаем поле ввода
+          onClick={onClickClear}
           className={styles.clearIcon}
           fill="none"
           height="24"

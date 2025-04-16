@@ -29,7 +29,6 @@ function App() {
 
   return (
     <div className="wrapper">
-      {/* Предоставление контекста поиска */}
       <SearchContext.Provider value={{ searchValue, setSearchValue }}>
         <Header />
         <div className="content">

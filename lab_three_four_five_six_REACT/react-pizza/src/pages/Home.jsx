@@ -53,9 +53,6 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  /**
-   * Запрашивает список пицц с сервера.
-   */
   const fetchPizzas = () => {
     setIsLoaded(true);
     const sortBy = sortType.replace("-", "");

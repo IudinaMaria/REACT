@@ -23,17 +23,12 @@ const Cart = () => {
    */
   const totalCount = items.reduce((sum, item) => item.count + sum, 0); // считаем общее количество товаров в корзине
 
-  /**
-   * Функция для очистки корзины.
-   * Показывает подтверждающее окно и очищает корзину, если пользователь подтверждает.
-   */
   const onClickClear = () => {
     if (window.confirm("Вы действительно хотите очистить корзину?")) {
       dispatch(clearItems());
     }
   };
 
-  // Если корзина пуста, выводим компонент CartEmpty
   if (!totalPrice) {
     return <CartEmpty />;
   }

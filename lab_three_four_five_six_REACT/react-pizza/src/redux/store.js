@@ -8,7 +8,7 @@ import cart from "./slices/cartSlice";
  */
 export const store = configureStore({
   reducer: {
-    filter, // Редьюсер для фильтрации данных
-    cart, // Редьюсер для управления корзиной
+    filter, 
+    cart,
   },
 });

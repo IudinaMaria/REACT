@@ -6,13 +6,10 @@ import { act } from "react";
  * @type {{ totalPrice: number, items: Array<{ id: number, price: number, count?: number }> }}
  */
 const initialState = {
-  totalPrice: 0, // Общая стоимость товаров в корзине
-  items: [], // Список товаров в корзине
+  totalPrice: 0, 
+  items: [], 
 };
 
-/**
- * Слайс состояния корзины.
- */
 export const cartSlice = createSlice({
   name: "cart",
   initialState,

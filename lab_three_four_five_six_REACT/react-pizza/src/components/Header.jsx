@@ -15,9 +15,8 @@ import "../scss/app.scss";
  * @returns {React.Element} Шапка сайта с логотипом, поиском и корзиной.
  */
 function Header() {
-  const { items, totalPrice } = useSelector((state) => state.cart); // Получаем данные о корзине из Redux
+  const { items, totalPrice } = useSelector((state) => state.cart);
 
-  // Рассчитываем общее количество товаров в корзине
   const totalCount = items.reduce((sum, item) => item.count + sum, 0);
 
   return (

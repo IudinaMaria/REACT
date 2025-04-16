@@ -16,15 +16,15 @@ import styles from "./Pagination.module.scss";
 const Pagination = ({ currentPage, onChangePage }) => {
   return (
     <ReactPaginate
-      className={styles.root} // Класс для стилизации пагинации
-      breakLabel="..." // Отображение многоточия для пропущенных страниц
-      nextLabel=">" // Кнопка "следующая"
-      onPageChange={(event) => onChangePage(event.selected + 1)} // Обработка перехода на новую страницу
-      pageRangeDisplayed={4} // Количество отображаемых страниц
-      pageCount={3} // Общее количество страниц
-      forcePage={currentPage - 1} // Установка текущей страницы
-      previousLabel="<" // Кнопка "предыдущая"
-      renderOnZeroPageCount={null} // Отображение пагинации при нулевом количестве страниц (не используется)
+      className={styles.root} 
+      breakLabel="..." 
+      nextLabel=">"
+      onPageChange={(event) => onChangePage(event.selected + 1)} 
+      pageRangeDisplayed={4}
+      pageCount={3}
+      forcePage={currentPage - 1}
+      previousLabel="<" 
+      renderOnZeroPageCount={null}
     />
   );
 };

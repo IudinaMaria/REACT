@@ -6,17 +6,14 @@ import { act } from "react";
  * @type {{ categoryId: number, currentPage: number, sort: { name: string, sortProperty: string } }}
  */
 const initialState = {
-  categoryId: 0, // Индекс категории по умолчанию (0 - все)
-  currentPage: 1, // Номер страницы по умолчанию
+  categoryId: 0, 
+  currentPage: 1, 
   sort: {
-    name: "популярности", // Название сортировки по умолчанию
-    sortProperty: "rating", // Свойство сортировки
+    name: "популярности",
+    sortProperty: "rating",
   },
 };
 
-/**
- * Слайс состояния для управления фильтрами.
- */
 export const filterSlice = createSlice({
   name: "filters",
   initialState,
@@ -56,7 +53,7 @@ export const filterSlice = createSlice({
     setFilters: (state, action) => {
       state.currentPage = action.payload.currentPage;
       state.sort = action.payload.sort;
-      state.categoryId = Number(action.payload.categoryId); // Преобразуем в число
+      state.categoryId = Number(action.payload.categoryId);
     },
   },
 });

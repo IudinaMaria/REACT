@@ -27,8 +27,8 @@ function Categories({ value, onChangeCategory }) {
         {categories.map((categoryName, i) => (
           <li
             key={i}
-            onClick={() => onChangeCategory(i)} // при клике изменяет выбранную категорию
-            className={value === i ? "active" : ""} // активная категория получает класс "active"
+            onClick={() => onChangeCategory(i)}
+            className={value === i ? "active" : ""}
           >
             {categoryName}
           </li>
