@@ -882,7 +882,7 @@ function ProductList() {
 
 1. В `slices/cartSlice.js` создала слайс с начальными значениями:
 
-```jsx
+  ```jsx
    import { createSlice } from "@reduxjs/toolkit";
    import { act } from "react";
 
@@ -934,7 +934,7 @@ function ProductList() {
      cartSlice.actions;
 
    export default cartSlice.reducer;
-```
+  ```
   
 2. Реализовала добавление товара в корзину из компонента `ProductCard`.
 
