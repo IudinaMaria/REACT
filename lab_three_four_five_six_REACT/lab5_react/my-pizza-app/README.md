@@ -935,7 +935,7 @@ function ProductList() {
 
    export default cartSlice.reducer;
   ```
-
+  
 2. Реализовала добавление товара в корзину из компонента `ProductCard`.
 
  1. Использовала `useDispatch` и `addToCart`
