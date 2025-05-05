@@ -880,16 +880,16 @@ function ProductList() {
 3. В файле `store.js` настроила Redux Toolkit Store:
 
    ```jsx
-   import { configureStore } from '@reduxjs/toolkit';
-   import filter from './slices/filterSlice';
-   import cart from './slices/cartSlice';
+    import { configureStore } from '@reduxjs/toolkit';
+    import filter from './slices/filterSlice';
+    import cart from './slices/cartSlice';
 
-   export const store = configureStore({ // создаем стор и передаем в него редюсер
-   reducer: { 
-     filter, // передаем редюсер
-     cart, // передаем редюсер
-    },
-  })
+    export const store = configureStore({ // создаем стор и передаем в него редюсер
+    reducer: { 
+      filter, // передаем редюсер
+      cart, // передаем редюсер
+      },
+    })
    ```
 
 4. Обернула всё приложение в `Provider` в `main.jsx`.
@@ -908,11 +908,11 @@ function ProductList() {
    items: [], // массив с товарами
    };
 
-  export const cartSlice = createSlice({
-  // создаем то, где будет обрабатываться состояние
-  name: "cart", // имя слайса
-  initialState, // начальное состояние
-  reducers: {
+    export const cartSlice = createSlice({
+    // создаем то, где будет обрабатываться состояние
+    name: "cart", // имя слайса
+    initialState, // начальное состояние
+    reducers: {
     addItem: (state, action) => {
       // изменение категории
       const findItem = state.items.find((obj) => obj.id === action.payload.id); // ищем товар в массиве
@@ -941,12 +941,12 @@ function ProductList() {
       state.items = []; // очищаем массив
       state.totalPrice = 0; // очищаем общую цену
     },
-  },
-  });
+    },
+    });
 
-  export const { addItem, removeItem, clearItems, minusItem} = cartSlice.actions;
+    export const { addItem, removeItem, clearItems, minusItem} = cartSlice.actions;
 
-  export default cartSlice.reducer;
+    export default cartSlice.reducer;
   ```
 
 2. Реализовала добавление товара в корзину из компонента `ProductCard`.
@@ -1016,19 +1016,19 @@ Redux Toolkit (RTK) — это официальная библиотека от 
 - Уменьшают количество ручного кода.
 Пример:
 ```jsx
-const counterSlice = createSlice({
-  name: "counter",
-  initialState: { value: 0 },
-  reducers: {
-    increment(state) {
-      state.value += 1;
-    },
-    decrement(state) {
-      state.value -= 1;
-    }
-  }
-});
+  const counterSlice = createSlice({
+    name: "counter",
+    initialState: { value: 0 },
+    reducers: {
+     increment(state) {
+       state.value += 1;
+     },
+     decrement(state) {
+       state.value -= 1;
+      }
+   }
+  });
 
-export const { increment, decrement } = counterSlice.actions;
-export default counterSlice.reducer;
+  export const { increment, decrement } = counterSlice.actions;
+  export default counterSlice.reducer;
 ```
