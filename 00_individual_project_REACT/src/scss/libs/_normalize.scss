@@ -1,0 +1,62 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  outline: none;
+  font-family: 'Nunito', Roboto, system-ui, Tahoma, sans-serif;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: $black;
+}
+
+a,
+span,
+p,
+b,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: $black;
+}
+
+h1 {
+  font-size: 48px;
+  @media (max-width: 768px) {
+    font-size: 32px;
+  }
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 30px;
+  @media (max-width: 768px) {
+    font-size: 22px;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+@mixin noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

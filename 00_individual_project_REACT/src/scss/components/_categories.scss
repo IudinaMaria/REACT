@@ -1,0 +1,52 @@
+@import '../variables';
+
+.categories {
+  overflow-x: auto;
+  margin-bottom: 20px;
+  max-width: 100%;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    li {
+      background-color: #f9f9f9;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.1s ease-in-out;
+      white-space: nowrap;
+      font-size: 14px;
+      @include noselect();
+
+      &:hover {
+        background-color: darken(#f9f9f9, 2%);
+      }
+
+      &:active {
+        background-color: darken(#f9f9f9, 5%);
+      }
+
+      &.active {
+        background-color: #282828;
+        color: #fff;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    ul {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 5px;
+
+      li {
+        flex-shrink: 0;
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+    }
+  }
+}
