@@ -1,0 +1,42 @@
+// Переменные
+$primary-color: #3498db;
+$text-color: #333;
+$header-padding: 20px;
+$font-size: 2rem;
+
+// Миксин для border-radius
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// Основной стиль для header
+header {
+  background-color: $primary-color;
+  color: white;
+  padding: $header-padding;
+  text-align: center;
+  @include border-radius(10px);
+
+  h1 {
+    font-size: $font-size;
+    margin: 0;
+    color: $text-color;
+
+    &:hover {
+      color: lighten($primary-color, 20%);
+    }
+  }
+}
+
+// Дополнительный стиль для мобильных устройств
+@media (max-width: 768px) {
+  header {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}

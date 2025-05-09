@@ -1,0 +1,12 @@
+/* локальные стили для компонента Header */
+.header {
+    background-color: #bc4cc0;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
